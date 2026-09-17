@@ -573,6 +573,66 @@
     color: var(--link);
     text-decoration: none;
   }
+
+  /* ---------- success modal ---------- */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(6, 2, 1, 0.82);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 1000;
+  }
+  .modal-overlay.active {
+    display: flex;
+    animation: fadeIn 0.25s ease;
+  }
+  .modal-card {
+    background: var(--card-bg);
+    border: 1px solid var(--accent-line);
+    border-radius: 16px;
+    padding: 30px 24px 24px;
+    max-width: 360px;
+    width: 100%;
+    text-align: center;
+  }
+  .modal-icon { font-size: 34px; margin-bottom: 12px; }
+  .modal-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0 0 10px;
+  }
+  .modal-text {
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--body);
+    margin: 0 0 22px;
+  }
+  .modal-link-btn {
+    display: block;
+    width: 100%;
+    background: var(--btn-bg);
+    color: var(--on-accent);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 14px;
+    padding: 16px 20px;
+    box-sizing: border-box;
+  }
+  .modal-link-btn:active { background: var(--btn-bg-active); }
+  .modal-close {
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 14px;
+    cursor: pointer;
+  }
 </style>
 </head>
 <body>
@@ -772,6 +832,17 @@
     <div class="footer">@selftest13laika_bot</div>
   </div>
 
+</div>
+
+<!-- ===== ПОПАП УСПЕХА ===== -->
+<div class="modal-overlay" id="success-modal">
+  <div class="modal-card">
+    <div class="modal-icon">🎉</div>
+    <p class="modal-title display">Заявка принята!</p>
+    <p class="modal-text">Осталось нажать кнопку ниже — она откроет закрытый канал, где с вами свяжется моя команда.</p>
+    <a class="modal-link-btn" id="channel-link" href="#" target="_blank" onclick="haptic('medium')">Перейти в канал →</a>
+    <button class="modal-close" onclick="closeSuccessModal()">Закрыть</button>
+  </div>
 </div>
 
 <script>
@@ -1184,16 +1255,10 @@
       .then(() => {
         submitBtn.textContent = 'Заявка отправлена ✓';
         document.querySelector('#screen-form .reassure-text').textContent =
-          'Готово! Моя команда напишет вам в Телеграм. Сейчас откроем закрытый канал.';
+          'Готово! Моя команда напишет вам в Телеграм.';
 
         const channelUrl = 'https://t.me/+QEMDmlJUZ9M2NDQy';
-        setTimeout(() => {
-          if (tg && tg.openTelegramLink) {
-            tg.openTelegramLink(channelUrl);
-          } else {
-            window.open(channelUrl, '_blank');
-          }
-        }, 700);
+        showSuccessModal(channelUrl);
       })
       .catch(err => {
         console.error(err);
@@ -1201,6 +1266,24 @@
         submitBtn.textContent = 'Отправить заявку →';
         alert('Не получилось отправить заявку. Проверьте интернет и попробуйте ещё раз.');
       });
+  }
+  function showSuccessModal(channelUrl) {
+    const link = document.getElementById('channel-link');
+    link.href = channelUrl;
+    link.onclick = function (e) {
+      haptic('medium');
+      if (tg && tg.openTelegramLink) {
+        e.preventDefault();
+        tg.openTelegramLink(channelUrl);
+      }
+      // иначе сработает обычный переход по href (для тестов в браузере)
+    };
+    document.getElementById('success-modal').classList.add('active');
+  }
+
+  function closeSuccessModal() {
+    haptic('light');
+    document.getElementById('success-modal').classList.remove('active');
   }
 </script>
 
