@@ -590,7 +590,7 @@
       <div class="spacer"></div>
       <p class="start-note">Это не диагностика и не диагноз. Это способ посмотреть на себя со стороны.</p>
       <button class="btn btn-primary" onclick="startQuiz()">Начать</button>
-      <p class="consent-text">Нажимая «Начать», вы соглашаетесь с <a href="#">Политикой обработки персональных данных</a>.</p>
+      <p class="consent-text">Нажимая «Начать», вы соглашаетесь с <a href="https://docs.yandex.ru/view/d/pQM872qXegjG2BDJfm6lHCPegnqahzm72s0qoIz-cKg6Z2FYY0NsTm00Zw" target="_blank" rel="noopener">Политикой обработки персональных данных</a>.</p>
     </div>
     <div class="footer">@selftest13laika_bot</div>
   </div>
@@ -752,11 +752,11 @@
 
       <div class="checkbox-row">
         <input type="checkbox" id="consent-data">
-        <label for="consent-data">Я даю <a href="#">согласие</a> на обработку моих персональных данных и ознакомлен(а) с <a href="#">Политикой обработки персональных данных</a>.</label>
+        <label for="consent-data">Я даю <a href="https://docs.yandex.ru/view/d/pQM872qXegjG2BDJfm6lHCPegnqahzm72s0qoIz-cKg6aFk4T01WRGRfUQ" target="_blank" rel="noopener">согласие</a> на обработку моих персональных данных, ознакомлен(а) с <a href="https://docs.yandex.ru/view/d/pQM872qXegjG2BDJfm6lHCPegnqahzm72s0qoIz-cKg6Z2FYY0NsTm00Zw" target="_blank" rel="noopener">Политикой обработки персональных данных</a> и принимаю условия <a href="https://docs.yandex.ru/view/d/pQM872qXegjG2BDJfm6lHCPegnqahzm72s0qoIz-cKg6aHA2R2VNVFRfQQ" target="_blank" rel="noopener">Оферты</a>.</label>
       </div>
       <div class="checkbox-row">
         <input type="checkbox" id="consent-mail">
-        <label for="consent-mail">Я хочу получать письма и сообщения о программах и эфирах. Отписаться можно в один клик. <a href="#">Условия рассылки</a>.</label>
+        <label for="consent-mail">Я хочу получать письма и сообщения о программах и эфирах. Отписаться можно в один клик. <a href="https://docs.yandex.ru/view/d/pQM872qXegjG2BDJfm6lHCPegnqahzm72s0qoIz-cKg6Sm0xY0FOOTZ1dw" target="_blank" rel="noopener">Условия рассылки</a>.</label>
       </div>
 
       <div class="highlight-box">Сразу после записи откроем закрытый чат 13_laika. Новое вы увидите там первыми, там же лучшие условия и материалы, которых нет в открытом доступе.</div>
@@ -1175,7 +1175,11 @@
     submitBtn.disabled = true;
     submitBtn.textContent = 'Отправляем…';
 
-    fetch(GOOGLE_SHEET_WEBHOOK_URL, {
+    const channelUrl = 'https://t.me/+QEMDmlJUZ9M2NDQy';
+
+    // Не ждём ответ от Google дольше 3.5 сек — сама заявка при этом
+    // не отменяется и всё равно долетит до таблицы в фоне, если чуть опоздает.
+    const sendRequest = fetch(GOOGLE_SHEET_WEBHOOK_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body: JSON.stringify({
@@ -1184,17 +1188,13 @@
         readiness: readiness || 'не выбрана',
         consentMail: consentMail
       })
-    })
-      .then(() => {
-        const channelUrl = 'https://t.me/+QEMDmlJUZ9M2NDQy';
-        showSuccessScreen(channelUrl);
-      })
-      .catch(err => {
-        console.error(err);
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Отправить заявку →';
-        alert('Не получилось отправить заявку. Проверьте интернет и попробуйте ещё раз.');
-      });
+    }).catch(err => console.error('Заявка не отправилась:', err));
+
+    const maxWait = new Promise(resolve => setTimeout(resolve, 3500));
+
+    Promise.race([sendRequest, maxWait]).then(() => {
+      showSuccessScreen(channelUrl);
+    });
   }
 
   function openChannel(channelUrl) {
