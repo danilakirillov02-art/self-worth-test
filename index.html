@@ -573,66 +573,6 @@
     color: var(--link);
     text-decoration: none;
   }
-
-  /* ---------- success modal ---------- */
-  .modal-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(6, 2, 1, 0.82);
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    z-index: 1000;
-  }
-  .modal-overlay.active {
-    display: flex;
-    animation: fadeIn 0.25s ease;
-  }
-  .modal-card {
-    background: var(--card-bg);
-    border: 1px solid var(--accent-line);
-    border-radius: 16px;
-    padding: 30px 24px 24px;
-    max-width: 360px;
-    width: 100%;
-    text-align: center;
-  }
-  .modal-icon { font-size: 34px; margin-bottom: 12px; }
-  .modal-title {
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--ink);
-    margin: 0 0 10px;
-  }
-  .modal-text {
-    font-size: 14.5px;
-    line-height: 1.55;
-    color: var(--body);
-    margin: 0 0 22px;
-  }
-  .modal-link-btn {
-    display: block;
-    width: 100%;
-    background: var(--btn-bg);
-    color: var(--on-accent);
-    font-family: 'Inter', sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    text-decoration: none;
-    border-radius: 14px;
-    padding: 16px 20px;
-    box-sizing: border-box;
-  }
-  .modal-link-btn:active { background: var(--btn-bg-active); }
-  .modal-close {
-    background: none;
-    border: none;
-    color: var(--muted);
-    font-size: 13px;
-    margin-top: 14px;
-    cursor: pointer;
-  }
 </style>
 </head>
 <body>
@@ -643,7 +583,7 @@
   <div class="screen active" id="screen-start">
     <div class="card">
       <h1 class="start-title display">Вы отдаёте в отношениях больше, чем получаете?</h1>
-      <p class="start-text">Тут тридцать три утверждения. Про мужчин, деньги и границы. И про то, что вы обычно себе не разрешаете.</p>
+      <p class="start-text">Тут двадцать четыре утверждения. Про мужчин, деньги и границы. И про то, что вы обычно себе не разрешаете.</p>
       <p class="start-text">Отвечайте сразу, первым, что придёт в голову. «Да» или «нет», без раздумий. Долгие объяснения себе не нужны.</p>
       <p class="start-text">И в конце вы увидите цифру: сколько пунктов оказались про вас. А если оказались, узнаете, что с этим обычно происходит дальше.</p>
       <p class="start-text">Правильных ответов тут нет, оценивать вас никто не будет. Три минуты. Поехали.</p>
@@ -675,7 +615,7 @@
     <div class="card">
       <p class="result-label">ваш тип</p>
       <h2 class="result-title display" id="result-title"></h2>
-      <p class="result-score-note"><span id="result-score">0</span> из 33 пунктов про вас</p>
+      <p class="result-score-note"><span id="result-score">0</span> <span id="result-total">из 24</span> пунктов про вас</p>
 
       <div id="result-paragraphs"></div>
 
@@ -832,17 +772,18 @@
     <div class="footer">@selftest13laika_bot</div>
   </div>
 
-</div>
-
-<!-- ===== ПОПАП УСПЕХА ===== -->
-<div class="modal-overlay" id="success-modal">
-  <div class="modal-card">
-    <div class="modal-icon">🎉</div>
-    <p class="modal-title display">Заявка принята!</p>
-    <p class="modal-text">Осталось нажать кнопку ниже — она откроет закрытый канал, где с вами свяжется моя команда.</p>
-    <a class="modal-link-btn" id="channel-link" href="#" target="_blank" onclick="haptic('medium')">Перейти в канал →</a>
-    <button class="modal-close" onclick="closeSuccessModal()">Закрыть</button>
+  <!-- ===== ГОТОВО ===== -->
+  <div class="screen" id="screen-success">
+    <div class="card">
+      <h2 class="form-title display">Готово. Вы в списке первых.</h2>
+      <p class="program-para">Сейчас откроется закрытый канал — там с вами свяжется моя команда и закрепит цену в 7 раз ниже.</p>
+      <p class="disclaimer-text">Новое вы увидите там первыми, там же лучшие условия и материалы, которых нет в открытом доступе.</p>
+      <div class="spacer"></div>
+      <a class="btn btn-primary" id="channel-link" href="#" style="text-decoration:none; display:block; box-sizing:border-box;" onclick="haptic('medium')">Открыть канал →</a>
+    </div>
+    <div class="footer">@selftest13laika_bot</div>
   </div>
+
 </div>
 
 <script>
@@ -868,27 +809,18 @@
     "После секса мой мужчина/мужчины обычно не заботятся о том, получила я оргазм или нет",
     "Я не привлекаю внимание тех, кто нравится мне",
     "Я не умею выстраивать коммуникацию с мужчинами, они все хотят заняться со мной сексом",
-    "Всем мужчинам от меня нужен только секс",
-    "Я уверена в том, что все мужчины изменяют",
     "Я постоянно думаю о деньгах, живу в дефиците, мне некогда думать о себе",
     "Дорогой подарок может подарить только муж, а не просто поклонник",
-    "Нельзя принимать подарки от мужчин, это значит, что я ему должна буду",
-    "Я верю в сглаз и порчу, со мной такое уже было",
     "Я обычно подстраиваю свои планы под него, могу отменить работу/тренировки/урок/встречу с подругами",
     "После секса он пропал",
     "Перед сексом я переживаю, понравлюсь ли ему",
-    "У меня есть мужчина, с которым я занимаюсь сексом для здоровья",
     "Так бывает, что иногда на меня коллега/подруга/муж/начальник поднимает голос и унижает",
-    "Мой мужчина/подруга/друг может назначить встречу и отменить её в последний момент или вообще забыть об этом",
     "Я пытаюсь быть хорошей, но это не ценят. Люди не ценят доброту",
-    "Нахожусь в декрете и не чувствую никакого счастья",
     "Он периодически то пропадает, то возвращается. Не понимаю, что это значит",
     "Не понимаю, нравлюсь ли я ему",
-    "Муж не даёт мне денег, считает, что я не должна у него просить",
     "Мужчина вроде есть, но от него нет ни поступков, ни подарков",
     "Расстались, сказал мне неприятные вещи, что хочет других женщин. Мне было больно. Сейчас помирились, он пришёл назад с цветами и извинениями, всё вроде хорошо сейчас",
     "Знаю об изменах и переписках с другими женщинами, но терплю, потому что некуда уходить",
-    "Не знаю, кем хочу стать и чем заниматься, нет дела, которым бы я горела",
     "Давно в отношениях, но он не делает мне предложение",
     "В начале отношений не получается выстраивать границы, обозначать свои правила, поэтому они особо не ухаживают и ничего не дарят",
     "Чувствую себя функцией, а не любимой женщиной",
@@ -899,7 +831,7 @@
   // ---------- Градации и результаты ----------
   const bands = [
     {
-      max: 5,
+      max: 4,
       title: "Внутренняя опора",
       paragraphs: [
         "Вы наверняка это чувствуете каждый день, но редко называете вслух: вы умеете быть с собой честной, даже когда рядом никого нет, кто бы это оценил.",
@@ -912,7 +844,7 @@
         "Вы можете сказать «нет», не оправдываясь на три абзаца",
         "Вы не путаете внимание мужчины со своей ценностью"
       ],
-      note: "Отдельно: устойчивость — не значит, что расти больше некуда. Даже 3–5 пунктов из теста — места, где по накатанной вы всё ещё уступаете. Стоит их заметить, пока не разрослись.",
+      note: "Отдельно: устойчивость — не значит, что расти больше некуда. Даже 3–4 пункта из теста — места, где по накатанной вы всё ещё уступаете. Стоит их заметить, пока не разрослись.",
       hookParagraphs: [
         "12 октября у меня стартует полностью обновлённая легендарная Игра — формат, где за несколько дней вы на практике проживаете, что происходит, когда перестаёте останавливаться на «мне и так неплохо» и разгоняете свою устойчивость дальше.",
         "Вы знаете, что я расту через иррациональные действия, которые не объяснить логикой.",
@@ -921,7 +853,7 @@
       ]
     },
     {
-      max: 15,
+      max: 11,
       title: "Привычка недодавать себе",
       paragraphs: [
         "Скорее всего, со стороны у вас всё в порядке. Вы справляетесь, много тянете, никому особо не жалуетесь. Но внутри — знакомое чувство, что вы всё время немного не в приоритете. Даже в собственной жизни.",
@@ -943,7 +875,7 @@
       ]
     },
     {
-      max: 25,
+      max: 18,
       title: "Автоматическое согласие",
       paragraphs: [
         "Вы наверняка давно не спрашиваете себя, чего хотите на самом деле, а просто соглашаетесь на то, что предлагают. Отношения, работу, планы на вечер. И даже когда внутри «нет», вслух почему-то получается «да, конечно».",
@@ -965,7 +897,7 @@
       ]
     },
     {
-      max: 33,
+      max: 24,
       title: "Функция вместо женщины",
       paragraphs: [
         "Вы держитесь. Это видно уже по тому, как вы прошли этот тест: не сорвались, не закрыли на середине. Но если честно, вы, скорее всего, уже давно живёте не свою жизнь, а чью-то версию удобной вас.",
@@ -1041,6 +973,7 @@
     const band = getBand(score);
 
     document.getElementById('result-title').textContent = band.title;
+    document.getElementById('result-total').textContent = `из ${questions.length}`;
     document.getElementById('result-score').textContent = score;
 
     const paraWrap = document.getElementById('result-paragraphs');
@@ -1253,12 +1186,8 @@
       })
     })
       .then(() => {
-        submitBtn.textContent = 'Заявка отправлена ✓';
-        document.querySelector('#screen-form .reassure-text').textContent =
-          'Готово! Моя команда напишет вам в Телеграм.';
-
         const channelUrl = 'https://t.me/+QEMDmlJUZ9M2NDQy';
-        showSuccessModal(channelUrl);
+        showSuccessScreen(channelUrl);
       })
       .catch(err => {
         console.error(err);
@@ -1267,23 +1196,31 @@
         alert('Не получилось отправить заявку. Проверьте интернет и попробуйте ещё раз.');
       });
   }
-  function showSuccessModal(channelUrl) {
+
+  function openChannel(channelUrl) {
+    if (tg && tg.openTelegramLink) {
+      tg.openTelegramLink(channelUrl);
+    } else {
+      window.open(channelUrl, '_blank');
+    }
+  }
+
+  function showSuccessScreen(channelUrl) {
     const link = document.getElementById('channel-link');
     link.href = channelUrl;
     link.onclick = function (e) {
       haptic('medium');
       if (tg && tg.openTelegramLink) {
         e.preventDefault();
-        tg.openTelegramLink(channelUrl);
+        openChannel(channelUrl);
       }
       // иначе сработает обычный переход по href (для тестов в браузере)
     };
-    document.getElementById('success-modal').classList.add('active');
-  }
-
-  function closeSuccessModal() {
-    haptic('light');
-    document.getElementById('success-modal').classList.remove('active');
+    showScreen('screen-success');
+    haptic('medium');
+    // авторедирект в канал через пару секунд — кнопка сверху остаётся
+    // рабочей на случай, если авто-переход заблокирован
+    setTimeout(() => openChannel(channelUrl), 2000);
   }
 </script>
 
