@@ -7,25 +7,26 @@
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --page-bg: #F5E7A3;
-    --card-bg: #FEFDFB;
-    --card-line: #ECE6D6;
-    --ink: #17140F;
-    --body: #4A453D;
-    --muted: #948E82;
-    --link: #3B6FD1;
-    --btn-bg: #17140F;
-    --btn-bg-active: #2C2820;
-    --answer-bg: #F3F1E9;
-    --answer-line: #E4DFCF;
-    --footer-bg: #17140F;
-    --footer-text: #C9C4B7;
-    --accent: #A9713C;
-    --accent-bg: #F1E4CD;
-    --accent-line: #E3CFA9;
+    --page-bg: #120503;
+    --card-bg: #1B0806;
+    --card-line: #3A1712;
+    --ink: #F4E6CE;
+    --body: #D8C3AC;
+    --muted: #A6897A;
+    --link: #E4B94A;
+    --btn-bg: #D4AF37;
+    --btn-bg-active: #B8912B;
+    --on-accent: #1B0806;
+    --answer-bg: #241009;
+    --answer-line: #4A241B;
+    --footer-bg: #000000;
+    --footer-text: #C9A227;
+    --accent: #C9A227;
+    --accent-bg: #26100C;
+    --accent-line: #5C3620;
   }
 
   * { box-sizing: border-box; }
@@ -76,7 +77,8 @@
   }
 
   .display {
-    font-family: 'PT Serif', serif;
+    font-family: 'Cinzel', serif;
+    letter-spacing: 0.01em;
   }
 
   /* ---------- progress ---------- */
@@ -154,7 +156,8 @@
   .btn:active { transform: scale(0.98); }
   .btn-primary {
     background: var(--btn-bg);
-    color: #FEFDFB;
+    color: var(--on-accent);
+    font-weight: 700;
   }
   .btn-primary:active { background: var(--btn-bg-active); }
   .btn-outline {
@@ -216,7 +219,7 @@
     color: var(--ink);
   }
   .answer-btn:active { transform: scale(0.97); }
-  .answer-btn.yes:active { background: var(--ink); color: #FEFDFB; border-color: var(--ink); }
+  .answer-btn.yes:active { background: var(--btn-bg); color: var(--on-accent); border-color: var(--btn-bg); }
   .answer-btn.no:active { background: var(--answer-line); }
 
   .back-link {
@@ -232,55 +235,57 @@
 
   /* ---------- result screen ---------- */
   .result-label {
-    font-size: 14px;
-    color: var(--muted);
-    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--accent);
     margin: 0 0 10px;
   }
   .result-title {
-    font-size: 27px;
+    font-size: 30px;
     font-weight: 700;
-    line-height: 1.25;
+    line-height: 1.22;
     color: var(--ink);
-    text-align: center;
-    margin: 0 0 22px;
+    margin: 0 0 14px;
   }
   .result-score-note {
     font-size: 13px;
     color: var(--muted);
-    text-align: center;
-    margin: -12px 0 22px;
+    margin: 0 0 24px;
   }
   .result-para {
     font-size: 15.5px;
     line-height: 1.62;
     color: var(--body);
-    text-align: center;
     margin: 0 0 16px;
   }
   .result-subhead {
-    font-size: 15.5px;
+    font-size: 12px;
     font-weight: 700;
-    color: var(--ink);
-    text-align: center;
-    margin: 22px 0 12px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 24px 0 14px;
   }
   .result-bullets {
     list-style: none;
     padding: 0;
-    margin: 0 0 20px;
+    margin: 0 0 22px;
   }
   .result-bullets li {
     font-size: 15.5px;
     line-height: 1.55;
     color: var(--body);
-    text-align: center;
     margin-bottom: 10px;
-    padding-left: 0;
+    padding-left: 16px;
+    position: relative;
   }
   .result-bullets li::before {
-    content: "• ";
-    color: var(--ink);
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
   }
   .result-divider {
     border: none;
@@ -291,9 +296,9 @@
     font-size: 15.5px;
     line-height: 1.62;
     color: var(--body);
-    text-align: center;
-    margin: 0 0 24px;
+    margin: 0 0 16px;
   }
+  .result-hook strong { color: var(--accent); }
 
   /* ---------- program screen (лендинг) ---------- */
   .program-top-row {
@@ -307,7 +312,7 @@
   }
   .program-top-row .back-link { margin: 0; font-size: 12px; letter-spacing: 0.06em; }
   .program-dots {
-    color: var(--answer-line);
+    color: var(--accent-line);
     font-size: 12px;
     letter-spacing: 3px;
     overflow: hidden;
@@ -317,7 +322,7 @@
   .badge-predzapis {
     display: inline-block;
     background: var(--accent);
-    color: #FEFDFB;
+    color: var(--on-accent);
     font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.04em;
@@ -344,7 +349,7 @@
     color: var(--body);
     margin: 0 0 16px;
   }
-  .program-para strong { color: var(--ink); }
+  .program-para strong { color: var(--accent); }
   .highlight-box {
     background: var(--accent-bg);
     border-radius: 12px;
@@ -530,7 +535,7 @@
     width: 100%;
     text-align: left;
     border: 1px solid var(--answer-line);
-    background: var(--card-bg);
+    background: var(--answer-bg);
     border-radius: 12px;
     padding: 14px 16px;
     font-family: 'Inter', sans-serif;
@@ -541,9 +546,9 @@
     transition: background 0.15s ease, border-color 0.15s ease;
   }
   .radio-option.selected {
-    background: var(--ink);
-    border-color: var(--ink);
-    color: #FEFDFB;
+    background: var(--btn-bg);
+    border-color: var(--btn-bg);
+    color: var(--on-accent);
     font-weight: 600;
   }
   .checkbox-row {
@@ -557,7 +562,7 @@
     width: 17px;
     height: 17px;
     flex-shrink: 0;
-    accent-color: var(--ink);
+    accent-color: var(--btn-bg);
   }
   .checkbox-row label {
     font-size: 13px;
@@ -587,7 +592,7 @@
       <button class="btn btn-primary" onclick="startQuiz()">Начать</button>
       <p class="consent-text">Нажимая «Начать», вы соглашаетесь с <a href="#">Политикой обработки персональных данных</a>.</p>
     </div>
-    <div class="footer">@ВАШ_БОТ</div>
+    <div class="footer">@selftest13laika_bot</div>
   </div>
 
   <!-- ===== ВОПРОС ===== -->
@@ -602,7 +607,7 @@
       </div>
       <button class="back-link" id="back-link" onclick="goBack()" style="visibility:hidden;">← Назад</button>
     </div>
-    <div class="footer">@ВАШ_БОТ</div>
+    <div class="footer">@selftest13laika_bot</div>
   </div>
 
   <!-- ===== РЕЗУЛЬТАТ ===== -->
@@ -621,13 +626,13 @@
 
       <hr class="result-divider">
 
-      <p class="result-hook" id="result-hook"></p>
+      <div id="result-hook"></div>
 
       <div class="spacer"></div>
       <button class="btn btn-primary" onclick="showProgram()">Что за Игра</button>
       <button class="btn-text" onclick="restart()">Пройти ещё раз</button>
     </div>
-    <div class="footer">@ВАШ_БОТ</div>
+    <div class="footer">@selftest13laika_bot</div>
   </div>
 
   <!-- ===== ПРОГРАММА ===== -->
@@ -642,7 +647,7 @@
       <span class="badge-predzapis">ПРЕДЗАПИСЬ</span>
       <p class="program-eyebrow-top">8-МОДУЛЬНАЯ ИГРА 13_LAIKA ПРО САМОЦЕННОСТЬ, ГРАНИЦЫ И ОТНОШЕНИЯ С МУЖЧИНАМИ</p>
 
-      <h2 class="program-title display">Игра</h2>
+      <h2 class="program-title display">Женский магнетизм</h2>
 
       <p class="program-para">Формат, где вы не читаете про самоценность, а проживаете её в заданиях, свиданиях и практиках с реальными мужчинами. <strong>Старт 12 октября.</strong></p>
 
@@ -708,7 +713,9 @@
         <p class="gift-item">🔥 <b>Практика «Залезть в голову»</b><br>Легендарная практика — тот самый секрет манкой женщины, с помощью которого можно заставить его думать о тебе тогда, когда этого хочешь ты.</p>
       </div>
 
-      <p class="program-para">После заявки с вами свяжется моя команда. Ники в телеграме, под которыми мы пишем, я выложу в закрытый канал, куда вы попадёте после предзаписи. Они расскажут, как устроена новая Игра, и закрепят за вами ту самую стоимость в 7 раз ниже, ответят на все вопросы. Такая цена будет держаться за вами до 30 сентября.</p>
+      <p class="program-para">После заявки с вами свяжется моя команда. Ники в телеграме, под которыми мы пишем, я выложу в закрытый канал, куда вы попадёте после предзаписи.</p>
+
+      <p class="program-para">Они расскажут, как устроена новая Игра, и закрепят за вами ту самую стоимость <strong>в 7 раз ниже</strong>, ответят на все вопросы. Такая цена будет держаться за вами до <strong>30 сентября</strong>.</p>
 
       <button class="btn btn-primary" onclick="showForm()">Оставить заявку →</button>
       <p class="reassure-text">Платить сейчас ничего не нужно. Два поля: имя и телеграм.</p>
@@ -718,7 +725,7 @@
       </div>
 
     </div>
-    <div class="footer">@ВАШ_БОТ</div>
+    <div class="footer">@selftest13laika_bot</div>
   </div>
 
   <!-- ===== ЗАЯВКА ===== -->
@@ -762,7 +769,7 @@
       </div>
 
     </div>
-    <div class="footer">@ВАШ_БОТ</div>
+    <div class="footer">@selftest13laika_bot</div>
   </div>
 
 </div>
@@ -773,7 +780,7 @@
   if (tg) {
     tg.ready();
     tg.expand();
-    try { tg.setHeaderColor('#F5E7A3'); tg.setBackgroundColor('#F5E7A3'); } catch (e) {}
+    try { tg.setHeaderColor('#120503'); tg.setBackgroundColor('#120503'); } catch (e) {}
   }
   function haptic(style) {
     if (tg && tg.HapticFeedback) {
@@ -835,7 +842,12 @@
         "Вы не путаете внимание мужчины со своей ценностью"
       ],
       note: "Отдельно: устойчивость — не значит, что расти больше некуда. Даже 3–5 пунктов из теста — места, где по накатанной вы всё ещё уступаете. Стоит их заметить, пока не разрослись.",
-      hook: "12 октября у меня стартует полностью обновлённая легендарная Игра — формат, где за несколько дней вы на практике проживаете, что происходит, когда перестаёте останавливаться на «мне и так неплохо» и разгоняете свою устойчивость дальше. Вы знаете, что я расту через иррациональные действия, которые не объяснить логикой. Многие из вас хотели на Игру, но не могли участвовать из-за высокой цены. И сейчас я сделала самое нелогичное действие за всё время ведения Игры: если вы прошли этот тест, для вас открыта предзапись по цене в 7 раз меньше. Это не шутка, а демонстрация «Женской логики» нелинейного роста. Нажмите кнопку ниже, чтобы узнать все условия и оставить предзапись: будете получать актуальную информацию об Игре. И не проспите такие сладкие условия."
+      hookParagraphs: [
+        "12 октября у меня стартует полностью обновлённая легендарная Игра — формат, где за несколько дней вы на практике проживаете, что происходит, когда перестаёте останавливаться на «мне и так неплохо» и разгоняете свою устойчивость дальше.",
+        "Вы знаете, что я расту через иррациональные действия, которые не объяснить логикой.",
+        "Многие из вас хотели на Игру, но не могли участвовать из-за высокой цены. И сейчас я сделала самое нелогичное действие за всё время ведения Игры: если вы прошли этот тест, для вас открыта предзапись по цене <strong>в 7 раз меньше</strong>. Это не шутка, а демонстрация «Женской логики» нелинейного роста.",
+        "Нажмите кнопку ниже, чтобы узнать все условия и оставить предзапись: будете получать актуальную информацию об Игре. И не проспите такие сладкие условия."
+      ]
     },
     {
       max: 15,
@@ -852,7 +864,12 @@
         "Вы сами вызываете себе такси и даже не замечаете, что могли бы этого не делать"
       ],
       note: "Отдельно: часть того, что вы списываете на «просто такой мужчина», на самом деле про вашу собственную границу, точнее, про то, что вы её ещё не обозначили вслух.",
-      hook: "12 октября у меня стартует полностью обновлённая легендарная Игра — формат, где за несколько дней вы на практике проживаете, что происходит, когда перестаёте быть удобной раньше, чем счастливой. Вы знаете, что я расту через иррациональные действия, которые не объяснить логикой. Многие из вас хотели на Игру, но не могли участвовать из-за высокой цены. И сейчас я сделала самое нелогичное действие за всё время ведения Игры: если вы прошли этот тест, для вас открыта предзапись по цене в 7 раз меньше. Это не шутка, а демонстрация «Женской логики» нелинейного роста. Нажмите кнопку ниже, чтобы узнать все условия и оставить предзапись: будете получать актуальную информацию об Игре. И не проспите такие сладкие условия."
+      hookParagraphs: [
+        "12 октября у меня стартует полностью обновлённая легендарная Игра — формат, где за несколько дней вы на практике проживаете, что происходит, когда перестаёте быть удобной раньше, чем счастливой.",
+        "Вы знаете, что я расту через иррациональные действия, которые не объяснить логикой.",
+        "Многие из вас хотели на Игру, но не могли участвовать из-за высокой цены. И сейчас я сделала самое нелогичное действие за всё время ведения Игры: если вы прошли этот тест, для вас открыта предзапись по цене <strong>в 7 раз меньше</strong>. Это не шутка, а демонстрация «Женской логики» нелинейного роста.",
+        "Нажмите кнопку ниже, чтобы узнать все условия и оставить предзапись: будете получать актуальную информацию об Игре. И не проспите такие сладкие условия."
+      ]
     },
     {
       max: 25,
@@ -869,7 +886,12 @@
         "Ощущение, что вас видят — рядом есть люди, но не про вас"
       ],
       note: "Отдельно: если узнали себя в пунктах про деньги, стоит отделить это от темы отношений с мужчинами. Часто это один и тот же страх «не хватит», просто в разных декорациях.",
-      hook: "12 октября у меня стартует полностью обновлённая легендарная Игра — формат, где за несколько дней вы на практике проживаете, что происходит, когда перестаёте автоматически соглашаться. Вы знаете, что я расту через иррациональные действия, которые не объяснить логикой. Многие из вас хотели на Игру, но не могли участвовать из-за высокой цены. И сейчас я сделала самое нелогичное действие за всё время ведения Игры: если вы прошли этот тест, для вас открыта предзапись по цене в 7 раз меньше. Это не шутка, а демонстрация «Женской логики» нелинейного роста. Нажмите кнопку ниже, чтобы узнать все условия и оставить предзапись: будете получать актуальную информацию об Игре. И не проспите такие сладкие условия."
+      hookParagraphs: [
+        "12 октября у меня стартует полностью обновлённая легендарная Игра — формат, где за несколько дней вы на практике проживаете, что происходит, когда перестаёте автоматически соглашаться.",
+        "Вы знаете, что я расту через иррациональные действия, которые не объяснить логикой.",
+        "Многие из вас хотели на Игру, но не могли участвовать из-за высокой цены. И сейчас я сделала самое нелогичное действие за всё время ведения Игры: если вы прошли этот тест, для вас открыта предзапись по цене <strong>в 7 раз меньше</strong>. Это не шутка, а демонстрация «Женской логики» нелинейного роста.",
+        "Нажмите кнопку ниже, чтобы узнать все условия и оставить предзапись: будете получать актуальную информацию об Игре. И не проспите такие сладкие условия."
+      ]
     },
     {
       max: 33,
@@ -886,7 +908,12 @@
         "Вы откладываете себя (карьеру, желания, тело) до «лучших времён», которые не наступают"
       ],
       note: "Отдельно: если узнали себя больше чем в половине пунктов, это не про характер и не про судьбу. Это про давнюю привычку выживать, а не жить. И она меняется быстрее, чем кажется, когда за неё берутся не в одиночку.",
-      hook: "12 октября у меня стартует полностью обновлённая легендарная Игра — формат, где за несколько дней вы на практике проживаете, что происходит, когда перестаёте быть функцией и вспоминаете, какая вы на самом деле. Вы знаете, что я расту через иррациональные действия, которые не объяснить логикой. Многие из вас хотели на Игру, но не могли участвовать из-за высокой цены. И сейчас я сделала самое нелогичное действие за всё время ведения Игры: если вы прошли этот тест, для вас открыта предзапись по цене в 7 раз меньше. Это не шутка, а демонстрация «Женской логики» нелинейного роста. Нажмите кнопку ниже, чтобы узнать все условия и оставить предзапись: будете получать актуальную информацию об Игре. И не проспите такие сладкие условия."
+      hookParagraphs: [
+        "12 октября у меня стартует полностью обновлённая легендарная Игра — формат, где за несколько дней вы на практике проживаете, что происходит, когда перестаёте быть функцией и вспоминаете, какая вы на самом деле.",
+        "Вы знаете, что я расту через иррациональные действия, которые не объяснить логикой.",
+        "Многие из вас хотели на Игру, но не могли участвовать из-за высокой цены. И сейчас я сделала самое нелогичное действие за всё время ведения Игры: если вы прошли этот тест, для вас открыта предзапись по цене <strong>в 7 раз меньше</strong>. Это не шутка, а демонстрация «Женской логики» нелинейного роста.",
+        "Нажмите кнопку ниже, чтобы узнать все условия и оставить предзапись: будете получать актуальную информацию об Игре. И не проспите такие сладкие условия."
+      ]
     }
   ];
 
@@ -901,6 +928,8 @@
   function showScreen(id) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     document.getElementById(id).classList.add('active');
+    window.scrollTo(0, 0);
+    if (document.scrollingElement) document.scrollingElement.scrollTop = 0;
   }
 
   function startQuiz() {
@@ -962,7 +991,14 @@
     });
 
     document.getElementById('result-note').textContent = band.note;
-    document.getElementById('result-hook').textContent = band.hook;
+    const hookWrap = document.getElementById('result-hook');
+    hookWrap.innerHTML = '';
+    band.hookParagraphs.forEach(p => {
+      const el = document.createElement('p');
+      el.className = 'result-hook';
+      el.innerHTML = p;
+      hookWrap.appendChild(el);
+    });
 
     showScreen('screen-result');
     haptic('medium');
@@ -1148,10 +1184,16 @@
       .then(() => {
         submitBtn.textContent = 'Заявка отправлена ✓';
         document.querySelector('#screen-form .reassure-text').textContent =
-          'Готово! Моя команда напишет вам в Телеграм. После записи вас перекинет в обещанный Телеграм-канал.';
-        // TODO: раскомментировать и подставить ссылку на закрытый канал,
-        // чтобы сразу перекидывать туда после успешной отправки.
-        // if (tg && tg.openTelegramLink) { tg.openTelegramLink('https://t.me/ВАШ_КАНАЛ'); }
+          'Готово! Моя команда напишет вам в Телеграм. Сейчас откроем закрытый канал.';
+
+        const channelUrl = 'https://t.me/+QEMDmlJUZ9M2NDQy';
+        setTimeout(() => {
+          if (tg && tg.openTelegramLink) {
+            tg.openTelegramLink(channelUrl);
+          } else {
+            window.open(channelUrl, '_blank');
+          }
+        }, 700);
       })
       .catch(err => {
         console.error(err);
